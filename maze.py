@@ -45,7 +45,8 @@ class maze(object):
         current_cell = self.grid[CELL_ENTRANCE]
         # beginning of the creation of the maze
         while not self.visited_every_cell():
-            self.show_constrution()
+            # AFFICHER LA CONSTRUCTION !!!
+            # self.show_constrution()
             next_cell = self.chose_neighbors(current_cell)
             if next_cell != -1:
                 self.remove_wall(current_cell, next_cell)
@@ -58,21 +59,40 @@ class maze(object):
     def index(self, x, y):
         return int(y + x * self.w)
 
-    def chose_neighbors(self, c):
+    def accessible_neighbors(self, c):
         neighbors = []
-        index = self.index(c.x, c.y+1)
-        if 0 <= c.y+1 < self.w and not self.grid[index].visited:
+        index = self.index(c.x, c.y + 1)
+        if 0 <= c.y + 1 < self.w and not c.walls[BOTTOM_WALL]:
             neighbors.append(self.grid[index])
-        index = self.index(c.x, c.y-1)
-        if 0 <= c.y-1 < self.w and not self.grid[index].visited:
+        index = self.index(c.x, c.y - 1)
+        if 0 <= c.y - 1 < self.w and not c.walls[TOP_WALL]:
             neighbors.append(self.grid[index])
-        index = self.index(c.x+1, c.y)
-        if 0 <= c.x+1 < self.h and not self.grid[index].visited:
+        index = self.index(c.x + 1, c.y)
+        if 0 <= c.x + 1 < self.h and not c.walls[RIGHT_WALL]:
             neighbors.append(self.grid[index])
-        index = self.index(c.x-1, c.y)
-        if 0 <= c.x-1 < self.h and not self.grid[index].visited:
+        index = self.index(c.x - 1, c.y)
+        if 0 <= c.x - 1 < self.h and not c.walls[LEFT_WALL]:
             neighbors.append(self.grid[index])
+        return neighbors
 
+    def valide_neighbors(self, c):
+        neighbors = []
+        index = self.index(c.x, c.y + 1)
+        if 0 <= c.y + 1 < self.w and not self.grid[index].visited:
+            neighbors.append(self.grid[index])
+        index = self.index(c.x, c.y - 1)
+        if 0 <= c.y - 1 < self.w and not self.grid[index].visited:
+            neighbors.append(self.grid[index])
+        index = self.index(c.x + 1, c.y)
+        if 0 <= c.x + 1 < self.h and not self.grid[index].visited:
+            neighbors.append(self.grid[index])
+        index = self.index(c.x - 1, c.y)
+        if 0 <= c.x - 1 < self.h and not self.grid[index].visited:
+            neighbors.append(self.grid[index])
+        return neighbors
+
+    def chose_neighbors(self, c):
+        neighbors = self.valide_neighbors(c)
         if neighbors:
             return neighbors[randint(0, len(neighbors)-1)]
         else:
