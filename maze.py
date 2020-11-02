@@ -2,7 +2,6 @@ from cell import cell
 import pygame
 from variables import *
 from random import randint
-from time import sleep
 
 
 class maze(object):
@@ -10,7 +9,6 @@ class maze(object):
         self.w = maze_size[0]
         self.h = maze_size[1]
         self.grid = []
-
         self.window = pygame.display.set_mode(WINDOW_SIZE)
         self.generate()
 
@@ -21,7 +19,6 @@ class maze(object):
             cell.show_constrution(self.window)
         # We update the canvas every time we draw a cell
         pygame.display.update()
-        sleep(0.1)
 
     def show(self):
         # clearing the screen
@@ -41,11 +38,12 @@ class maze(object):
         stack = []
         cell_width = WINDOW_SIZE[0] / self.w
         cell_height = WINDOW_SIZE[1] / self.h
+        # initialisation of the cells
         for i in range(self.w):
             for j in range(self.h):
                 self.grid.append(cell(i, j, cell_width, cell_height))
         current_cell = self.grid[CELL_ENTRANCE]
-
+        # beginning of the creation of the maze
         while not self.visited_every_cell():
             self.show_constrution()
             next_cell = self.chose_neighbors(current_cell)
@@ -62,19 +60,17 @@ class maze(object):
 
     def chose_neighbors(self, c):
         neighbors = []
-        x = c.x / (WINDOW_SIZE[0] / self.w)
-        y = c.y / (WINDOW_SIZE[1] / self.h)
-        index = self.index(x, y+1)
-        if 0 <= y+1 < self.w and not self.grid[index].visited:
+        index = self.index(c.x, c.y+1)
+        if 0 <= c.y+1 < self.w and not self.grid[index].visited:
             neighbors.append(self.grid[index])
-        index = self.index(x, y-1)
-        if 0 <= y-1 < self.w and not self.grid[index].visited:
+        index = self.index(c.x, c.y-1)
+        if 0 <= c.y-1 < self.w and not self.grid[index].visited:
             neighbors.append(self.grid[index])
-        index = self.index(x+1, y)
-        if 0 <= x+1 < self.h and not self.grid[index].visited:
+        index = self.index(c.x+1, c.y)
+        if 0 <= c.x+1 < self.h and not self.grid[index].visited:
             neighbors.append(self.grid[index])
-        index = self.index(x-1, y)
-        if 0 <= x-1 < self.h and not self.grid[index].visited:
+        index = self.index(c.x-1, c.y)
+        if 0 <= c.x-1 < self.h and not self.grid[index].visited:
             neighbors.append(self.grid[index])
 
         if neighbors:
@@ -83,22 +79,17 @@ class maze(object):
             return -1
 
     def remove_wall(self, current, next):
-        n_x = next.x / (WINDOW_SIZE[0] / self.w)
-        n_y = next.y / (WINDOW_SIZE[1] / self.h)
-        c_x = current.x / (WINDOW_SIZE[0] / self.w)
-        c_y = current.y / (WINDOW_SIZE[1] / self.h)
-
-        if c_x - n_x == 1:
+        if current.x - next.x == 1:
             current.walls[LEFT_WALL] = False
             next.walls[RIGHT_WALL] = False
-        if c_x - n_x == -1:
+        if current.x - next.x == -1:
             current.walls[RIGHT_WALL] = False
             next.walls[LEFT_WALL] = False
 
-        if c_y - n_y == 1:
+        if current.y - next.y == 1:
             current.walls[TOP_WALL] = False
             next.walls[BOTTOM_WALL] = False
 
-        if c_y - n_y == -1:
+        if current.y - next.y == -1:
             current.walls[BOTTOM_WALL] = False
             next.walls[TOP_WALL] = False
