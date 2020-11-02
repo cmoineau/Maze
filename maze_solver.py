@@ -39,8 +39,7 @@ def a_star(maze_to_solve, start_coor, end_coord):
     while queue_open:
         # On trie selon les heuristiques puis on sort le meilleur heuristique
         queue_open = sorted(queue_open,
-               key=lambda e: e[1] + distance(e[0].x, e[0].y, end_coord[0], end_coord[1]),
-               reverse=True)
+               key=lambda e: e[1] + distance(e[0].x, e[0].y, end_coord[0], end_coord[1]))
         current_cell, current_cost = queue_open.pop(0)
 
         show_a_star(maze_to_solve, queue_open, queue_close, current_cell, end_coord)
