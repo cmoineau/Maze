@@ -2,7 +2,7 @@
 
 The goal of this project is to generate a maze and solve it using algorithms like A*.
 
-## Objectives :
+## 🎯 Objectives :
 - Learn how to use Pygame;
 - Implement a maze generator;
 - Implement a path finding algorithm (A*).
@@ -52,11 +52,11 @@ Animation of the A* algorithm :
 
 ![a_star](./docs/a_star.gif)
 
-## Requirements :
+## ⚙️ Requirements :
 
 - Pygames v 2.0.1
 
-##🚀🚀 🚀🚀🚀🚀Installation :
+## 🚀 Installation :
 
 To install all the dependencies you can use the command :
 
