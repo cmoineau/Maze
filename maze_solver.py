@@ -1,4 +1,3 @@
-import maze
 import pygame
 from variables import *
 from time import sleep
@@ -26,6 +25,7 @@ def show_a_star(m, open_queue, current, end):
         pygame.draw.rect(m.window, BLUE, (c.x * c.w + 1, c.y * c.h + 1, c.w, c.h))
 
     pygame.display.update()
+    sleep(WAIT_TIME)
 
 
 def a_star(maze_to_solve, start_coor, end_coord):
@@ -52,6 +52,6 @@ def a_star(maze_to_solve, start_coor, end_coord):
             cost = current_cost + 1
             if not (neighbor in queue_close or better_cost(neighbor, cost, queue_open)):
                 queue_open.append([neighbor, cost, visited + [current_cell]])
-            queue_close.append(current_cell)
+        queue_close.append(current_cell)
 
     return -1

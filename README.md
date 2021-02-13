@@ -24,7 +24,7 @@ This is the backtracking part of the algorithm.
 
 Animation of the generation :
 
-![maze_generation](./maze_generation.gif)
+![maze_generation](./docs/maze_generation.gif)
 
 ## Maze solver
 
@@ -50,4 +50,16 @@ Animation of the A* algorithm :
 
 (In blue you can see the cell in 'open' and in red the current cell.)
 
-![a_star](./a_star.gif)
+![a_star](./docs/a_star.gif)
+
+## Requirements :
+
+- Pygames v 2.0.1
+
+##🚀🚀 🚀🚀🚀🚀Installation :
+
+To install all the dependencies you can use the command :
+
+```bash
+pip install -r requirements.txt
+```

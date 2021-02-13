@@ -1,10 +1,10 @@
-from cell import cell
+from Maze.cell import cell
 import pygame
 from variables import *
 from random import randint
+from sys import exit
 
-
-class maze(object):
+class MazeObject(object):
     def __init__(self, maze_size):
         self.w = maze_size[0]
         self.h = maze_size[1]
@@ -21,6 +21,10 @@ class maze(object):
         pygame.display.update()
 
     def show(self):
+        for event in pygame.event.get():  # Checking event to exit
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
         # clearing the screen
         self.window.fill(BLACK)
         for cell in self.grid:

@@ -6,6 +6,7 @@ BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 BLACK = (0, 0, 0)
 GREY = (51, 51, 51)
+
 # DEFINING WINDOW SETTINGS
 WINDOW_SIZE = (1000, 800)
 
@@ -19,3 +20,7 @@ LEFT_WALL = 1
 RIGHT_WALL = 2
 BOTTOM_WALL = 3
 LINE_SIZE = 1
+
+# DEFINING SOLVER SETTINGS
+# Note : if the wait time is too low the the display may blink
+WAIT_TIME = 0.07  # Time in seconds
