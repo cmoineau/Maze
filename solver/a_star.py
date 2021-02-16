@@ -1,6 +1,7 @@
 import pygame
 from variables import *
 from time import sleep
+from utils import distance
 
 
 def better_cost(cell, cost, queue):
@@ -10,11 +11,7 @@ def better_cost(cell, cost, queue):
     return False
 
 
-def distance(x1, y1, x2, y2):
-    return abs(x1 - x2) + abs(y1 - y2)
-
-
-def show_a_star(m, open_queue, current, end):
+def show_progress(m, open_queue, current, end):
     m.show()
     pygame.draw.rect(m.window, RED, (current.x * current.w + 1, current.y * current.h + 1, current.w, current.h))
 
@@ -28,18 +25,17 @@ def show_a_star(m, open_queue, current, end):
     sleep(WAIT_TIME)
 
 
-def a_star(maze_to_solve, start_coor, end_coord):
+def solve(maze_to_solve, start_coor, end_coord, animated=False):
     queue_open = []
     queue_close = []
     starting_cell = maze_to_solve.grid[maze_to_solve.index(start_coor[0], start_coor[1])]
     queue_open.append([starting_cell, 0, []])
     while queue_open:
-        # On trie selon les heuristiques puis on sort le meilleur heuristique
         queue_open = sorted(queue_open,
                key=lambda e: e[1] + distance(e[0].x, e[0].y, end_coord[0], end_coord[1]))
         current_cell, current_cost, visited = queue_open.pop(0)
-
-        show_a_star(maze_to_solve, queue_open, current_cell, end_coord)
+        if animated:
+            show_progress(maze_to_solve, queue_open, current_cell, end_coord)
 
         if current_cell.x == end_coord[0] and current_cell.y == end_coord[1]:
             maze_to_solve.show()

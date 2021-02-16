@@ -3,6 +3,9 @@ from variables import *
 
 
 class cell(object):
+    """
+    Cell object of the maze.
+    """
     def __init__(self, x, y, width, height):
         self.w = width
         self.h = height
